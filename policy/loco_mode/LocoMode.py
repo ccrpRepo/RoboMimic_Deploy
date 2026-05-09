@@ -120,6 +120,8 @@ class LocoMode(FSMState):
             return FSMStateName.SKILL_BEYOND_MIMIC
         elif(self.state_cmd.skill_cmd == FSMCommand.PASSIVE):
             return FSMStateName.PASSIVE
+        elif(self.state_cmd.skill_cmd == FSMCommand.SKILL_5):
+            return FSMStateName.SKILL_HOLOMOTION
         else:
             return FSMStateName.LOCOMODE
         

@@ -1,0 +1,119 @@
+onnx_path_motion_tracking: "model_46500.onnx"
+onnx_path_velocity_tracking: "model_19000.onnx"
+
+# HDF5 dataset root path
+hdf5_root: "/home/fxp/code/HoloMotion/data/hdf5_datasets/h5_g1_29dof_amass_test"
+
+# Control parameters
+kps: [40.179, 40.179, 40.179, 99.098, 99.098, 28.501, 
+      40.179, 40.179, 28.501, 99.098, 99.098, 14.251, 
+      14.251, 28.501, 28.501, 14.251, 14.251, 28.501, 
+      28.501, 14.251, 14.251, 14.251, 14.251, 14.251, 
+      14.251, 16.778, 16.778, 16.778, 16.778]
+
+kd_lab: [2.558, 2.558, 2.558, 6.309, 6.309, 1.814, 
+         2.558, 2.558, 1.814, 6.309, 6.309, 0.907, 
+         0.907, 1.814, 1.814, 0.907, 0.907, 1.814, 
+         1.814, 0.907, 0.907, 0.907, 0.907, 0.907, 
+         0.907, 1.068, 1.068, 1.068, 1.068]
+
+kds: [2.558, 2.558, 2.558, 6.309, 6.309, 1.814, 
+      2.558, 2.558, 1.814, 6.309, 6.309, 0.907, 
+      0.907, 1.814, 1.814, 0.907, 0.907, 1.814, 
+      1.814, 0.907, 0.907, 0.907, 0.907, 0.907, 
+      0.907, 1.068, 1.068, 1.068, 1.068]
+
+default_angles: [-0.312, -0.312, 0.0, 0.0, 0.0, 0.0, 
+                 0.0, 0.0, 0.0, 0.669, 0.669, 0.2, 
+                 0.2, -0.363, -0.363, 0.2, -0.2, 0.0, 
+                 0.0, 0.0, 0.0, 0.6, 0.6, 0.0, 
+                 0.0, 0.0, 0.0, 0.0, 0.0]
+
+action_scale: [0.548, 0.548, 0.548, 0.351, 0.351, 0.439, 
+               0.548, 0.548, 0.439, 0.351, 0.351, 0.439, 
+               0.439, 0.439, 0.439, 0.439, 0.439, 0.439, 
+               0.439, 0.439, 0.439, 0.439, 0.439, 0.439, 
+               0.439, 0.075, 0.075, 0.075, 0.075]
+
+tau_limit: [88.0,  88.0, 88.0,
+            88.0,  88.0, 88.0,
+            88.0,  88.0, 88.0,
+            139.0, 139.0, 25.0, 25.0,
+            50.0,  50.0, 25.0, 25.0,
+            50.0,  50.0, 25.0, 25.0,
+            25.0, 25.0,
+            5.0,  5.0,
+            5.0,  5.0,
+            5.0,  5.0]
+
+# Joint mapping from policy order to MuJoCo order
+joint2motor_idx: [0, 6, 12, 
+                  1, 7, 13, 
+                  2, 8, 14, 
+                  3, 9, 15, 22,
+                  4, 10, 16, 23, 
+                  5, 11, 17, 24, 
+                  18, 25, 
+                  19, 26, 
+                  20, 27, 
+                  21, 28]
+
+# DOF names in ONNX model order (29 DOF, no head joints)
+# Note: torso_* will be mapped to waist_* in HDF5 data
+dof_names_onnx: 
+  - "left_hip_yaw_joint"
+  - "left_hip_roll_joint"
+  - "left_hip_pitch_joint"
+  - "left_knee_joint"
+  - "left_ankle_pitch_joint"
+  - "left_ankle_roll_joint"
+  - "right_hip_yaw_joint"
+  - "right_hip_roll_joint"
+  - "right_hip_pitch_joint"
+  - "right_knee_joint"
+  - "right_ankle_pitch_joint"
+  - "right_ankle_roll_joint"
+  - "torso_yaw_joint"      # Maps to waist_yaw_joint in HDF5
+  - "torso_roll_joint"    # Maps to waist_roll_joint in HDF5
+  - "torso_pitch_joint"   # Maps to waist_pitch_joint in HDF5
+  - "left_shoulder_pitch_joint"
+  - "left_shoulder_roll_joint"
+  - "left_shoulder_yaw_joint"
+  - "left_elbow_joint"
+  - "left_wrist_yaw_joint"
+  - "left_wrist_roll_joint"
+  - "right_shoulder_pitch_joint"
+  - "right_shoulder_roll_joint"
+  - "right_shoulder_yaw_joint"
+  - "right_elbow_joint"
+  - "right_wrist_yaw_joint"
+  - "right_wrist_roll_joint"
+  # Note: HDF5 data has left_wrist_pitch_joint and right_wrist_pitch_joint
+  # but ONNX model uses yaw/roll only. We'll use wrist_pitch as the last two DOF
+  - "left_wrist_pitch_joint"
+  - "right_wrist_pitch_joint"
+
+# Default angles in ONNX order (29 DOF)
+default_angles_onnx: [-0.312, -0.312, 0.0, 0.0, 0.0, 0.0, 
+                      0.0, 0.0, 0.0, 0.669, 0.669, 0.2, 
+                      0.2, -0.363, -0.363, 0.2, -0.2, 0.0, 
+                      0.0, 0.0, 0.0, 0.6, 0.6, 0.0, 
+                      0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+
+# Command mode: "motion_tracking" or "velocity_tracking"
+command_mode: "motion_tracking"
+# Policy parameters
+num_actions: 29
+num_obs_motion: 604  # context_length=4, feat_dim=151
+num_obs_velocity: 970 # context_length=10, feat_dim=97
+context_length_motion: 4
+context_length_velocity: 10
+
+cmd_scale: [1.0, 1.0, 1.0]
+cmd_init: [0.0, 0.0, 0.0]
+cmd_range:
+  lin_vel_x: [-0.6, 1.0]
+  lin_vel_y: [-0.4, 0.4]
+  ang_vel_z: [-0.5, 0.5]

@@ -10,6 +10,7 @@ from policy.skill_cast.SkillCast import SkillCast
 from policy.kick.Kick import Kick
 from policy.kungfu2.KungFu2 import KungFu2
 from policy.beyond_mimic.BeyondMimic import BeyondMimic
+from policy.holomotion.HoloMotion import HoloMotion
 from FSM.FSMState import *
 import time
 from common.ctrlcomp import *
@@ -39,6 +40,7 @@ class FSM:
         self.kick_policy = Kick(state_cmd, policy_output)
         self.kungfu2_policy = KungFu2(state_cmd, policy_output)
         self.beyond_mimic_policy = BeyondMimic(state_cmd, policy_output)
+        self.holomotion_policy = HoloMotion(state_cmd, policy_output)
         
         print("initalized all policies!!!")
         
@@ -99,6 +101,8 @@ class FSM:
             self.cur_policy = self.kungfu2_policy
         elif((policy_name == FSMStateName.SKILL_BEYOND_MIMIC)):
             self.cur_policy = self.beyond_mimic_policy
+        elif((policy_name == FSMStateName.SKILL_HOLOMOTION)):
+            self.cur_policy = self.holomotion_policy
         else:
             pass
             
